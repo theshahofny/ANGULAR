@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="customers">
+<head> 
+
+<style type = "text/css"> 
+label, input {display : block; margin 1em}
+input {margin : 1em}
+
+</style>
+</head>
+<body ng-controller = "CustomerController as CC">
+
+<ul>
+<li  data-id = "{{customer.id}}" ng-repeat = "customer in CC.customers" > <a ng-click="CC.remove($index)" href="#"> {{customer.name}} </a></li>
+</ul>
+
+<form ng-submit = "CC.add()">
+
+<label for="customer-name"> New Customer </label>
+<input id = "customer-name" type="text" ng-model= "CC.newName">
+<input type = "submit" value = "Add New Customer">
+
+</form>
+
+<div>
+Total Number of Customers: {{CC.customers.length}} 
+</div>
+
+<div>
+The first customer: {{CC.customers[0].name}}
+</div>
+
+<div>
+The second customer: {{CC.customers[CC.customers.length-1].name}}
+</div>
+
+<script src = "./angular.min.js"></script>
+
+<script type = "text/javascript">
+
+angular.module('customers', []).controller("CustomerController", function()
+{
+
+	this.customers = [
+	{id:87, name: "John Doe"}
+	];
+
+				
+	this.newName = "";
+
+	
+	this.add = function (){
+		this.customers.push({id: 901, name : this.newName})
+		this.newName = "";
+	}
+	
+	this.remove = function(index) { 
+		
+		  this.customers.splice(index,1);     
+		}
+
+		});
+		</script>
+</body>
+
+</html>
